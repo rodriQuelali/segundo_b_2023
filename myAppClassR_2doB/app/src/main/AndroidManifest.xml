@@ -12,6 +12,12 @@
         android:theme="@style/Theme.MyAppClassR_2doB"
         tools:targetApi="31">
         <activity
+            android:name=".principal"
+            android:exported="false" />
+        <activity
+            android:name=".palindromo"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
