@@ -10,9 +10,10 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText txt1,txt2;
+    EditText txt1, txt2;
     TextView tvR;
     Button btns;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,20 +26,12 @@ public class MainActivity extends AppCompatActivity {
         btns.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int a,b,s;
-                a=Integer.parseInt(txt1.getText().toString());
-                b=Integer.parseInt(txt2.getText().toString());
-                s=a+b;
-                tvR.setText(String.valueOf(s));
+                tvR.setText(String.valueOf(Integer.parseInt(txt1.getText().toString())+Integer.parseInt(txt2.getText().toString())));
             }
         });
     }
 
-    public void suma(View v){
-        int a,b,s;
-        a=Integer.parseInt(txt1.getText().toString());
-        b=Integer.parseInt(txt2.getText().toString());
-        s=a+b;
-        tvR.setText(String.valueOf(s));
+    public void suma(View v) {
+        tvR.setText(String.valueOf((Integer.parseInt(txt2.getText().toString())) + (Integer.parseInt(txt1.getText().toString()))));
     }
 }
