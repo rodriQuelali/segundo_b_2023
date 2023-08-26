@@ -60,7 +60,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(ch2.isChecked() == true){
+<<<<<<< HEAD
+            Toast.makeText(MainActivity.this, "La Division es: "+ String.valueOf(vl / vl2), Toast.LENGTH_SHORT).show();
+=======
             Toast.makeText(MainActivity.this, "La Multiplicacion es: "+ String.valueOf(vl / vl2), Toast.LENGTH_SHORT).show();
+>>>>>>> c175dbbca60cebcb365838c9d65d6bddd526fbf5
         }
     }
 }
