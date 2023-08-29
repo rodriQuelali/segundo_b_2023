@@ -3,7 +3,7 @@ package com.example.listarray;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-<<<<<<< HEAD
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,13 +11,13 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-=======
+
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
->>>>>>> 8e4ab8766d96a3f9b51af5d2e94a60a08b8f1f7f
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> aptEmp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,empleado);
         lsEm.setAdapter(aptEmp);
 
-<<<<<<< HEAD
+
         lsEm.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int con, long po) {
@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-=======
->>>>>>> 8e4ab8766d96a3f9b51af5d2e94a60a08b8f1f7f
+
     }
 }
