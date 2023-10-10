@@ -1,7 +1,7 @@
 package com.example.fragmentsqlite.model;
 
 public class Producto {
-    private int cod;
+    private int codigo;
     private String descripcion;
     private double precio;
 
@@ -10,11 +10,11 @@ public class Producto {
     //set and get
 
     public int getCod() {
-        return cod;
+        return codigo;
     }
 
     public void setCod(int cod) {
-        this.cod = cod;
+        this.codigo = codigo;
     }
 
     public String getDescripcion() {

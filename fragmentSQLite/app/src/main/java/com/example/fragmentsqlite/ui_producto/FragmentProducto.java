@@ -1,5 +1,7 @@
 package com.example.fragmentsqlite.ui_producto;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,7 +9,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.fragmentsqlite.DB.AdminSQLiteOpenHelper;
 import com.example.fragmentsqlite.R;
 
 /**
@@ -61,6 +65,26 @@ public class FragmentProducto extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_producto, container, false);
+        View view = inflater.inflate(R.layout.fragment_producto, container, false);
+        return view;
     }
+
+    public void guardar(View v){
+
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(getContext(), "administracion", null, 1);
+        SQLiteDatabase db = admin.getWritableDatabase();
+        String cod = "";
+        String descri = "";
+        String precio = "";
+        ContentValues registro = new ContentValues();
+        registro.put("codigo", cod);
+        registro.put("descripcion", descri);
+        registro.put("precio", precio);
+        db.insert("articulo",null, registro);
+        db.close();
+        Toast.makeText(getContext(), "SE GUARDO CORRECTAMENTE....", Toast.LENGTH_SHORT).show();
+
+    }
+
+
 }
