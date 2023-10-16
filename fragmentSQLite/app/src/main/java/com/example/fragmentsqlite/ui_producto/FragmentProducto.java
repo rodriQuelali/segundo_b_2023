@@ -9,10 +9,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.fragmentsqlite.DB.AdminSQLiteOpenHelper;
+
 import com.example.fragmentsqlite.R;
+import com.example.fragmentsqlite.model.Producto;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,17 +65,58 @@ public class FragmentProducto extends Fragment {
         }
     }
 
+    Producto res1;
+    AdminSQLiteOpenHelper admin;
+    private EditText txtC,txtD,txtP;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_producto, container, false);
+        txtC = view.findViewById(R.id.txtCodigo);
+        txtD = view.findViewById(R.id.txtDescrip);
+        txtP = view.findViewById(R.id.txtPrecio);
+
+        Button btnRe = view.findViewById(R.id.btnGuardar);
+        Button btnEli = view.findViewById(R.id.btnEliminar);
+
+        //DB
+        admin = new AdminSQLiteOpenHelper(getContext(), "administracion", null, 1);
+                btnRe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SQLiteDatabase db = admin.getWritableDatabase();
+                res1 = new Producto(Integer.parseInt(txtC.getText().toString()), txtD.getText().toString(), Double.parseDouble(txtP.getText().toString()));
+                String cod = String.valueOf(res1.getCod());
+                String descri = res1.getDescripcion();
+                String precio = String.valueOf(res1.getPrecio());
+                ContentValues registro = new ContentValues();
+                registro.put("codigo", cod);
+                registro.put("descripcion", descri);
+                registro.put("precio", precio);
+                db.insert("articulo",null, registro);
+                db.close();
+                Toast.makeText(getContext(), "SE GUARDO CORRECTAMENTE....", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+                //eliminar
+        btnEli.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SQLiteDatabase db = admin.getWritableDatabase();
+                Producto PrE = new Producto(Integer.parseInt(txtC.getText().toString()));
+                String cod = String.valueOf(PrE.getCod());
+
+
+            }
+        });
         return view;
     }
 
     public void guardar(View v){
 
-        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(getContext(), "administracion", null, 1);
+        /*AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(getContext(), "administracion", null, 1);
         SQLiteDatabase db = admin.getWritableDatabase();
         String cod = "";
         String descri = "";
@@ -82,7 +127,7 @@ public class FragmentProducto extends Fragment {
         registro.put("precio", precio);
         db.insert("articulo",null, registro);
         db.close();
-        Toast.makeText(getContext(), "SE GUARDO CORRECTAMENTE....", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "SE GUARDO CORRECTAMENTE....", Toast.LENGTH_SHORT).show();*/
 
     }
 
