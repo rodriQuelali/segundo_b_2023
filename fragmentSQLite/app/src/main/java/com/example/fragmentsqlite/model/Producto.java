@@ -5,7 +5,16 @@ public class Producto {
     private String descripcion;
     private double precio;
 
-    //metodos
+    public Producto(int codigo, String descripcion, double precio) {
+        this.codigo = codigo;
+        this.descripcion = descripcion;
+        this.precio = precio;
+    }
+
+    public Producto(int codigo) {
+        this.codigo = codigo;
+    }
+//metodos
 
     //set and get
 

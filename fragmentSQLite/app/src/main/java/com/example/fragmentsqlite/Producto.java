@@ -14,6 +14,9 @@ public class Producto extends AppCompatActivity {
 
     private Button btnPro, btnLispro;
     Fragment frgmP, frmLP;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
