@@ -1,6 +1,7 @@
 package com.example.fragmentsqlite.ui_producto;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
@@ -79,6 +80,8 @@ public class FragmentProducto extends Fragment {
 
         Button btnRe = view.findViewById(R.id.btnGuardar);
         Button btnEli = view.findViewById(R.id.btnEliminar);
+        Button btnConsulta = view.findViewById(R.id.btnBusqueda);
+
 
         //DB
         admin = new AdminSQLiteOpenHelper(getContext(), "administracion", null, 1);
@@ -107,12 +110,40 @@ public class FragmentProducto extends Fragment {
                 SQLiteDatabase db = admin.getWritableDatabase();
                 Producto PrE = new Producto(Integer.parseInt(txtC.getText().toString()));
                 String cod = String.valueOf(PrE.getCod());
-
+                ContentValues registro = new ContentValues();
+                registro.put("codigo", cod);
+                db.delete("articulo","codigo="+cod, null);
+                db.close();
+                Toast.makeText(getContext(), "Se elimino el PRODUCTO", Toast.LENGTH_SHORT).show();
 
             }
         });
+
+        //consultas
+        btnConsulta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SQLiteDatabase db = admin.getWritableDatabase();
+                Producto eli = new Producto(Integer.parseInt(txtC.getText().toString()));
+                String cod = String.valueOf(eli.getCod());
+                String sqlCon = "SELECT * FROM articulo WHERE codigo=";
+                Cursor fila = db.rawQuery(sqlCon + cod,null);
+                if(fila.moveToFirst()){
+                    Producto bus = new Producto(Integer.parseInt(fila.getString(0)), fila.getString(1),Double.parseDouble(fila.getString(2)));
+                    Toast.makeText(getContext(), "IVA: " + bus.calIVA(), Toast.LENGTH_SHORT).show();
+                    txtC.setText(String.valueOf(bus.getCod()));
+                    txtC.setText(bus.getDescripcion());
+                    txtC.setText(String.valueOf(bus.getPrecio()));
+                }else{
+                    Toast.makeText(getContext(), "NO hay datos del registro", Toast.LENGTH_SHORT).show();
+                }
+                db.close();
+            }
+        });
+
         return view;
     }
+
 
     public void guardar(View v){
 

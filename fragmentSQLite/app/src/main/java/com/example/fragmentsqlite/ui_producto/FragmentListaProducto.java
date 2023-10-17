@@ -1,14 +1,24 @@
 package com.example.fragmentsqlite.ui_producto;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.fragmentsqlite.AdapaterProducto.adapterProductoL;
+import com.example.fragmentsqlite.DB.AdminSQLiteOpenHelper;
 import com.example.fragmentsqlite.R;
+import com.example.fragmentsqlite.model.Producto;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,11 +66,50 @@ public class FragmentListaProducto extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    AdminSQLiteOpenHelper admin;
+    List<Producto> proudcList;
+    adapterProductoL productoAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lista_producto, container, false);
+        View view = inflater.inflate(R.layout.fragment_lista_producto, container, false);
+        admin = new AdminSQLiteOpenHelper(getContext(), "administracion", null, 1);
+
+        //recycleyView
+        RecyclerView re = view.findViewById(R.id.listaProductoRecycleyView);
+        re.setLayoutManager(new LinearLayoutManager(getContext()));
+        proudcList = getAllProductos();
+        productoAdapter = new adapterProductoL(proudcList);
+        re.setAdapter(productoAdapter);
+
+        return view;
+    }
+
+
+    public List<Producto> getAllProductos() {
+        List<Producto> productosList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM articulo";
+        admin = new AdminSQLiteOpenHelper(getContext(), "administracion", null, 1);
+        SQLiteDatabase db = admin.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                String descripcion = cursor.getString(1);
+                double precio = cursor.getDouble(2);
+
+                Producto producto = new Producto(id, descripcion, precio);
+                productosList.add(producto);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return productosList;
     }
 }
