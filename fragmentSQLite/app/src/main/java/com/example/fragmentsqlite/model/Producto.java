@@ -15,7 +15,9 @@ public class Producto {
         this.codigo = codigo;
     }
 //metodos
-
+    public Double calIVA(){
+        return this.precio * 0.13;
+    }
     //set and get
 
     public int getCod() {
