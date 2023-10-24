@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
+final public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
     private final  String nameTable = "articulo";
 
     public AdminSQLiteOpenHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
@@ -15,7 +15,10 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table articulo(codigo int primary key, descripcion text, precio real)");
+        String createProduc = "create table "+this.nameTable+"(codigo int primary key, descripcion text, precio real)";
+        //String creausuario = "";
+        db.execSQL(createProduc);
+        //db.execSQL(creausuario);
     }
 
     @Override

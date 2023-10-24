@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.fragmentsqlite.DB.AdminSQLiteOpenHelper;
 
+import com.example.fragmentsqlite.DB.productoSQLIte;
 import com.example.fragmentsqlite.R;
 import com.example.fragmentsqlite.model.Producto;
 
@@ -67,7 +68,7 @@ public class FragmentProducto extends Fragment {
     }
 
     Producto res1;
-    AdminSQLiteOpenHelper admin;
+
     private EditText txtC,txtD,txtP;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,13 +85,21 @@ public class FragmentProducto extends Fragment {
 
 
         //DB
-        admin = new AdminSQLiteOpenHelper(getContext(), "administracion", null, 1);
+
                 btnRe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SQLiteDatabase db = admin.getWritableDatabase();
+                //SQLiteDatabase db = admin.getWritableDatabase();
                 res1 = new Producto(Integer.parseInt(txtC.getText().toString()), txtD.getText().toString(), Double.parseDouble(txtP.getText().toString()));
-                String cod = String.valueOf(res1.getCod());
+                productoSQLIte insPro = new productoSQLIte(getContext());
+                int stackinsert = insPro.insertProduc(res1);
+                if(stackinsert == 1){
+                    Toast.makeText(getContext(), "SE GUARDO CORRECTAMENTE....", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getContext(), "NOOOOO..... SE GUARDO CORRECTAMENTE....", Toast.LENGTH_SHORT).show();
+                }
+
+                /*String cod = String.valueOf(res1.getCod());
                 String descri = res1.getDescripcion();
                 String precio = String.valueOf(res1.getPrecio());
                 ContentValues registro = new ContentValues();
@@ -98,8 +107,8 @@ public class FragmentProducto extends Fragment {
                 registro.put("descripcion", descri);
                 registro.put("precio", precio);
                 db.insert("articulo",null, registro);
-                db.close();
-                Toast.makeText(getContext(), "SE GUARDO CORRECTAMENTE....", Toast.LENGTH_SHORT).show();
+                db.close();*/
+
             }
         });
 
@@ -107,14 +116,14 @@ public class FragmentProducto extends Fragment {
         btnEli.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SQLiteDatabase db = admin.getWritableDatabase();
+                /*SQLiteDatabase db = admin.getWritableDatabase();
                 Producto PrE = new Producto(Integer.parseInt(txtC.getText().toString()));
                 String cod = String.valueOf(PrE.getCod());
                 ContentValues registro = new ContentValues();
                 registro.put("codigo", cod);
                 db.delete("articulo","codigo="+cod, null);
                 db.close();
-                Toast.makeText(getContext(), "Se elimino el PRODUCTO", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Se elimino el PRODUCTO", Toast.LENGTH_SHORT).show();*/
 
             }
         });
@@ -123,7 +132,7 @@ public class FragmentProducto extends Fragment {
         btnConsulta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SQLiteDatabase db = admin.getWritableDatabase();
+                /*SQLiteDatabase db = admin.getWritableDatabase();
                 Producto eli = new Producto(Integer.parseInt(txtC.getText().toString()));
                 String cod = String.valueOf(eli.getCod());
                 String sqlCon = "SELECT * FROM articulo WHERE codigo=";
@@ -137,7 +146,7 @@ public class FragmentProducto extends Fragment {
                 }else{
                     Toast.makeText(getContext(), "NO hay datos del registro", Toast.LENGTH_SHORT).show();
                 }
-                db.close();
+                db.close();*/
             }
         });
 
@@ -145,22 +154,7 @@ public class FragmentProducto extends Fragment {
     }
 
 
-    public void guardar(View v){
 
-        /*AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(getContext(), "administracion", null, 1);
-        SQLiteDatabase db = admin.getWritableDatabase();
-        String cod = "";
-        String descri = "";
-        String precio = "";
-        ContentValues registro = new ContentValues();
-        registro.put("codigo", cod);
-        registro.put("descripcion", descri);
-        registro.put("precio", precio);
-        db.insert("articulo",null, registro);
-        db.close();
-        Toast.makeText(getContext(), "SE GUARDO CORRECTAMENTE....", Toast.LENGTH_SHORT).show();*/
-
-    }
 
 
 }
